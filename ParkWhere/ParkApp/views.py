@@ -1,7 +1,8 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
+import requests
 
 from .models import Choice, Question
 
@@ -41,3 +42,10 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('ParkApp:results', args=(question.id,)))
+    
+def testAPIcall(request):
+    response = requests.get('https://jsonplaceholder.typicode.com/users')
+    users = response.json()
+    print(users)
+    return render(request, "ParkApp/test.html", {'users': users})
+    pass
