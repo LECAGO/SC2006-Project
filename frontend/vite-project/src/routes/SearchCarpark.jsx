@@ -2,12 +2,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './SearchCarpark.css';
 import { MdSearch } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 function SearchCarpark() {
     const navigate = useNavigate();
+    const [inputSearch, setInputSearch] = useState('');
 
-    function clickHandler() {
-      navigate('/list');
+    function submitHandler(event) {
+        event.preventDefault();
+        navigate({
+            pathname: '/list',
+            search: '?coordinates=' + inputSearch,
+        });
     }
 
     return (
@@ -17,12 +23,12 @@ function SearchCarpark() {
             <p className="welcome-text">Simply enter your address in the search box below to search for the nearest carparks. </p>
             <p className="welcome-text">Alternatively, click here to <a href="/login">login / register</a> an account for more features.</p>
             <div className="d-flex justify-content-center h-100">
-                <div className="search">
-                    <input type="text" className="search-input" placeholder="Search..." name=""/>
-                    <MdSearch size={30} onClick={clickHandler}>
+                <form method='post' className="search" onSubmit={submitHandler}>
+                    <input type="text" className="search-input" placeholder="Search..." onChange={(event) => setInputSearch(event.target.value)}/>
+                    <MdSearch size={30} onClick={submitHandler}>
                         <i className="fa fa-search"></i>
                     </MdSearch>
-                </div>
+                </form>
             </div>
         </div>
     )

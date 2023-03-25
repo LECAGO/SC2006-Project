@@ -11,3 +11,8 @@ body {
 button {
   background-color: #3F72AF;
 }
+
+p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
