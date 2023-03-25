@@ -5,7 +5,7 @@ import {RouterProvider, createBrowserRouter} from 'react-router-dom';
 import RootLayout from './routes/RootLayout';
 import SearchCarpark from './routes/SearchCarpark';
 import HelpPage from './routes/HelpPage';
-import ListCarpark from './routes/ListCarpark';
+import ListCarpark, {GetURACarparkAvailability} from './routes/ListCarpark';
 import Favorites from './routes/Favorites';
 import Blacklist from './routes/Blacklist';
 import LoginPage from './routes/LoginPage';
@@ -22,7 +22,11 @@ const router = createBrowserRouter([
     element: <RootLayout/>,
     children: [
       {path: '/', element:<SearchCarpark/>},
-      {path: '/list', element:<ListCarpark/>},
+      {
+        path: '/list', 
+        element:<ListCarpark/>, 
+        loader: GetURACarparkAvailability
+      },
       {path: '/favorites', element:<Favorites/>},
       {path: '/blacklist', element:<Blacklist/>},
       {path: '/login', element:<LoginPage/>},

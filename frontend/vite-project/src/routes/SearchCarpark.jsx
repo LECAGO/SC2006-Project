@@ -11,16 +11,16 @@ function SearchCarpark() {
     }
 
     return (
-        <div class="intro">
-            <img class="icon-img" src="src/assets/ParkWhereIcon.png" alt="Icon"/>
-            <h1 class="welcome-title">Welcome to ParkWhere!</h1>
-            <p class="welcome-text">Simply enter your address in the search box below to search for the nearest carparks. </p>
-            <p class="welcome-text">Alternatively, click here to <a href="/login">login / register</a> an account for more features.</p>
-            <div class="d-flex justify-content-center h-100">
-                <div class="search">
-                    <input type="text" class="search-input" placeholder="Search..." name=""/>
+        <div className="intro">
+            <img className="icon-img" src="src/assets/ParkWhereIcon.png" alt="Icon"/>
+            <h1 className="welcome-title">Welcome to ParkWhere!</h1>
+            <p className="welcome-text">Simply enter your address in the search box below to search for the nearest carparks. </p>
+            <p className="welcome-text">Alternatively, click here to <a href="/login">login / register</a> an account for more features.</p>
+            <div className="d-flex justify-content-center h-100">
+                <div className="search">
+                    <input type="text" className="search-input" placeholder="Search..." name=""/>
                     <MdSearch size={30} onClick={clickHandler}>
-                        <i class="fa fa-search"></i>
+                        <i className="fa fa-search"></i>
                     </MdSearch>
                 </div>
             </div>
