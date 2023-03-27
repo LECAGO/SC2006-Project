@@ -14,7 +14,7 @@ function ListCarpark() {
     catch { label = [NaN] }
 
     var carpark_data = useLoaderData();
-    carpark_data = SortCarpark(coordinates, carpark_data);
+    if(carpark_data) carpark_data = SortCarpark(coordinates, carpark_data);
 
     return (
         <>

@@ -1,11 +1,21 @@
 export default async function GetURACarparkAvailability() {
     try {
-        const response_1 = await fetch('./uraavail.json');
+        const response_1 = await fetch('http://localhost:8080/https://www.ura.gov.sg/uraDataService/invokeUraDS?service=Car_Park_Availability', {
+            'headers' : {
+                'AccessKey': '2a097165-1ba0-4a44-9d9e-4a7b2586322b',
+                'Token': '7C768baecn26+43aVdVj3kc422Ju2qQdK14fx46j108Eva-5G2a-j1eR24bCxG80C9PaytvcPy49114624rSAq-61EE2tPF-aw11',
+            }
+        });
         const jsonrep_1 = await response_1.json();
         const formatrepapi_1 = JSON.parse(JSON.stringify(jsonrep_1));
         const carpark_avail_data = formatrepapi_1["Result"];
 
-        const response_2 = await fetch('./uradetails.json');
+        const response_2 = await fetch('http://localhost:8080/https://www.ura.gov.sg/uraDataService/invokeUraDS?service=Car_Park_Details', {
+            'headers' : {
+                'AccessKey': '2a097165-1ba0-4a44-9d9e-4a7b2586322b',
+                'Token': '7C768baecn26+43aVdVj3kc422Ju2qQdK14fx46j108Eva-5G2a-j1eR24bCxG80C9PaytvcPy49114624rSAq-61EE2tPF-aw11',
+            }
+        });
         const jsonrep_2 = await response_2.json();
         const formatrepapi_2 = JSON.parse(JSON.stringify(jsonrep_2));
         const carpark_details = formatrepapi_2["Result"]
@@ -67,6 +77,6 @@ export default async function GetURACarparkAvailability() {
         return CarparkAvail;
     } 
     catch (error) {
-        return [{name:"Error"}];
+        return NaN;
     }
 }
