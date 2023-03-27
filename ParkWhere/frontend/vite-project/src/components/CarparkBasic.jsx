@@ -1,9 +1,10 @@
-function CarparkBasic({ name, distance, availability, totalslot }) {
+function CarparkBasic({ name, distance, address, availability, totalslot }) {
     return (
         <>
             <div className="col-6 d-flex align-items-center">
                 <div>
                     <p className="fs-3 m-1">{name}</p>
+                    <p>{address}</p>
                 </div>
             </div>
             <div className="col-3 d-flex align-items-center">

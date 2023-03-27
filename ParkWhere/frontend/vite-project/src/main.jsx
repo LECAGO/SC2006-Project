@@ -5,7 +5,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import RootLayout from './routes/RootLayout';
 import SearchCarpark from './routes/SearchCarpark';
 import HelpPage from './routes/HelpPage';
-import ListCarpark, { GetURACarparkAvailability } from './routes/ListCarpark';
+import ListCarpark from './routes/ListCarpark';
 import Favorites from './routes/Favorites';
 import Blacklist from './routes/Blacklist';
 import LoginPage from './routes/LoginPage';
@@ -13,6 +13,7 @@ import ProfilePage from './routes/ProfilePage';
 import Contact from './routes/Contact';
 import Feedback from './routes/Feedback';
 import AccountSettings from './routes/AccountSettings';
+import GetURACarparkAvailability from "./components/GetURACarparkAvailability"
 
 import './index.css'
 
