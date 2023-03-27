@@ -81,3 +81,9 @@
   .welcome-text {
     margin-bottom: 0;
   }
+
+  .error {
+    margin-top: 5px;
+    text-align: center;
+    color: red;
+  }

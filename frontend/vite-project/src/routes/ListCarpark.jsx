@@ -8,6 +8,10 @@ function ListCarpark() {
     var coordinates = []
     try { coordinates = queryParams.get('coordinates').split(',').map((item) => (parseFloat(item))) }
     catch { coordinates = [NaN] }
+    var label = 'None';
+    try { label = queryParams.get('label') }
+    catch { label = [NaN] }
+
     var carpark_data = useLoaderData();
 
     function calcDistanceTwoPoints([x1,y1], [x2,y2]) {
@@ -47,7 +51,7 @@ function ListCarpark() {
         <>
             <div className="container mt-4">
                 <div className="row border-bottom border-dark py-3">
-                    <h2>Recommended Carparks:</h2>
+                    <h2>Recommended Carparks for {label}:</h2>
                 </div>
                 { coordinates[0] !== NaN && coordinates.length === 2 && carpark_data.length > 0 ?
                     carpark_data.map((carpark, i) => (
@@ -59,6 +63,7 @@ function ListCarpark() {
                                 availability={carpark.lots_available}
                                 totalslot={carpark.total_lots}
                                 distance={carpark.distance}
+                                address={carpark.address}
                             />
                         </div>
                     )) :
