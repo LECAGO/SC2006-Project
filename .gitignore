@@ -1,2 +1,7 @@
 .svn
 ParkWhere/apidecoder/node_modules
+frontend/vite-project/package-lock.json
+ParkWhere/apidecoder/public/ltadatamall.json
+ParkWhere/apidecoder/public/uraavail.json
+ParkWhere/apidecoder/public/uradetails.json
+ParkWhere/ParkApp/__pycache__/
