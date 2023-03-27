@@ -3,54 +3,20 @@ import './SearchCarpark.css';
 import { MdSearch } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import ParseSearch from '../components/ParseSearch'
 
 function SearchCarpark() {
     const navigate = useNavigate();
     const [inputSearch, setInputSearch] = useState('');
     const [errorSearch, setErrorSearch] = useState('');
-
-    async function Geocode(search) {
-        try {
-            const searchURI = encodeURIComponent('singapore ' + search.toLowerCase());
-            const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?key=33260cf482d7445a851a69dfcdb2d44f&q=${searchURI}`);
-            const jsonrep = await response.json();
-            var formatrepapi = JSON.parse(JSON.stringify(jsonrep));
-            if (response.status === 200) return formatrepapi["results"];
-            else return -1;
-        } catch (error) {
-            return -1
-        };
-    }
     
     async function submitHandler(event) {
         event.preventDefault();
-        if(inputSearch.length === 0) {
-            setErrorSearch('Search keyword is required');
-            return;
-        }
-        else {
-            const data = await Geocode(inputSearch);
-            if(data===-1) {
-                setErrorSearch('API call failed');
-            }
-            else if (data.length===0){
-                setErrorSearch('Invalid location, try another keyword search');
-            }
-            else {
-                const lat = data[0]['geometry']['lat'];
-                const lon = data[0]['geometry']['lng'];
-                const label = data[0]['formatted'];
-                
-                var cv = new SVY21();
-                var result = cv.computeSVY21(lat, lon);
-
-                const coor = result['E'] + ',' + result['N'];
-                navigate({
-                    pathname: '/list',
-                    search: '?coordinates=' + coor + '&label=' + label,
-                });
-            }
-        }
+        ParseSearch()
+        navigate({
+            pathname: '/list',
+            search: '?coordinates=' + coor + '&label=' + label,
+        })
     }
 
     return (
