@@ -3,7 +3,7 @@ export default async function GetURACarparkAvailability() {
         const response_1 = await fetch('http://localhost:8080/https://www.ura.gov.sg/uraDataService/invokeUraDS?service=Car_Park_Availability', {
             'headers' : {
                 'AccessKey': '2a097165-1ba0-4a44-9d9e-4a7b2586322b',
-                'Token': '7C768baecn26+43aVdVj3kc422Ju2qQdK14fx46j108Eva-5G2a-j1eR24bCxG80C9PaytvcPy49114624rSAq-61EE2tPF-aw11',
+                'Token': '4rDjwk9-h-24VBtb42aWqf1-9KbSD0ks6Mfha7p2t4--9aKa-B045784tCb90U4CRqX9d76C2bG77D92d8--C-x@-2U4WGfZ6549',
             }
         });
         const jsonrep_1 = await response_1.json();
@@ -13,7 +13,7 @@ export default async function GetURACarparkAvailability() {
         const response_2 = await fetch('http://localhost:8080/https://www.ura.gov.sg/uraDataService/invokeUraDS?service=Car_Park_Details', {
             'headers' : {
                 'AccessKey': '2a097165-1ba0-4a44-9d9e-4a7b2586322b',
-                'Token': '7C768baecn26+43aVdVj3kc422Ju2qQdK14fx46j108Eva-5G2a-j1eR24bCxG80C9PaytvcPy49114624rSAq-61EE2tPF-aw11',
+                'Token': '4rDjwk9-h-24VBtb42aWqf1-9KbSD0ks6Mfha7p2t4--9aKa-B045784tCb90U4CRqX9d76C2bG77D92d8--C-x@-2U4WGfZ6549',
             }
         });
         const jsonrep_2 = await response_2.json();

@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
@@ -48,4 +48,18 @@ def testAPIcall(request):
     users = response.json()
     print(users)
     return render(request, "ParkApp/test.html", {'users': users})
-    pass
+
+
+def receiveURAdata(request):
+    response = requests.get('http://localhost:8080/https://www.ura.gov.sg/uraDataService/invokeUraDS?service=Car_Park_Details',
+                                headers= {
+                                    'AccessKey': '2a097165-1ba0-4a44-9d9e-4a7b2586322b',
+                                    'Token': '4rDjwk9-h-24VBtb42aWqf1-9KbSD0ks6Mfha7p2t4--9aKa-B045784tCb90U4CRqX9d76C2bG77D92d8--C-x@-2U4WGfZ6549',
+                                }
+                            )
+    print(response)
+    print(response.text)
+    #TODO: response returned is in HTML? https://stackoverflow.com/questions/52488117/python-requests-randomly-breaks-with-jsondecodeerror
+    #TODO: cannot load json content from this GET request
+    URAdata = response.json()
+    return render(request, "ParkApp/carparks.html", {'carparks': URAdata})
