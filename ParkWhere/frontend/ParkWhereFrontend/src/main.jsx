@@ -13,6 +13,7 @@ import ProfilePage from './routes/ProfilePage';
 import Contact from './routes/Contact';
 import Feedback from './routes/Feedback';
 import AccountSettings from './routes/AccountSettings';
+import RegisterPage from './routes/RegisterPage';
 import GetCarparks from "./components/GetCarparks"
 import './index.css'
 
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
       { path: '/help', element: <HelpPage /> },
       { path: '/contact', element: <Contact /> },
       { path: '/feedback', element: <Feedback /> },
+      { path: '/register', element: <RegisterPage /> },
     ]
   },
 ]);

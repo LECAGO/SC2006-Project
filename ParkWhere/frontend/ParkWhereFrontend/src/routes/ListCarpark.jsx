@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CarparkBasic from "../components/CarparkBasic";
+import {useEffect} from "react";
 import {useLoaderData, useLocation} from "react-router-dom";
 import SortCarpark from "../components/SortCarpark";
 
@@ -15,6 +16,14 @@ function ListCarpark() {
 
     var carpark_data = useLoaderData();
     if(carpark_data) carpark_data = SortCarpark(coordinates, carpark_data);
+
+    // set interval to refresh data every 300 seconds (5 minutes)
+    useEffect(() => {
+        const interval = setInterval(() => {
+            window.location.reload();
+        }, 300 * 1000);
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <>
