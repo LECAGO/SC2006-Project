@@ -5,9 +5,11 @@ from . import views
 app_name = 'ParkApp'
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
-    path('<int:pk>/', views.DetailView.as_view(), name='detail'),
-    path('<int:pk>/results/', views.ResultsView.as_view(), name='results'),
-    path('<int:question_id>/vote/', views.vote, name='vote'),
     path('testAPIcall/', views.testAPIcall, name='testAPIcall'),
-    path('receiveURAdata/', views.receiveURAdata, name='receiveURAdata')
+    path('getCarpark/', views.getCarpark, name='getCarpark'),
+    path('postCarpark/', views.postCarkpark, name='postCarpark'),
+    path('putCarpark', views.putCarpark, name='putCarpark'),
+    path('getUser/', views.getUser, name='getUser'),
+    path('postUser/', views.postUser, name='postUser'),
+    path('putUser/', views.putUser, name='putUser')
 ]

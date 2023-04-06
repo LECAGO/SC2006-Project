@@ -1,5 +1,6 @@
 from django.contrib import admin
 
-from .models import Question
+from .models import Carpark, User
 
-admin.site.register(Question)
+admin.site.register(Carpark)
+admin.site.register(User)

@@ -4,6 +4,3 @@ frontend/vite-project/package-lock.json
 ParkWhere/apidecoder/public/ltadatamall.json
 ParkWhere/apidecoder/public/uraavail.json
 ParkWhere/apidecoder/public/uradetails.json
-ParkWhere/ParkApp/__pycache__/
-ParkWhere/ParkApp/migrations/__pycache__/0001_initial.cpython-310.pyc
-ParkWhere/ParkApp/migrations/__pycache__/0002_carpark_historicalcarpark.cpython-310.pyc

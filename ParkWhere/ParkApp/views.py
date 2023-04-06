@@ -1,47 +1,20 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
+from django.shortcuts import render
 from django.views import generic
 import requests
 
-from .models import Choice, Question
+from .models import Carpark, User
+from .serializer import CarparkSerializer, UserSerializer
+
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
 
 
 class IndexView(generic.ListView):
     template_name = 'ParkApp/index.html'
-    context_object_name = 'latest_question_list'
-
     def get_queryset(self):
-        """Return the last five published questions."""
-        return Question.objects.order_by('-pub_date')[:5]
+        return
 
-
-class DetailView(generic.DetailView):
-    model = Question
-    template_name = 'ParkApp/detail.html'
-
-
-class ResultsView(generic.DetailView):
-    model = Question
-    template_name = 'ParkApp/results.html'
-
-def vote(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    try:
-        selected_choice = question.choice_set.get(pk=request.POST['choice'])
-    except (KeyError, Choice.DoesNotExist):
-        # Redisplay the question voting form.
-        return render(request, 'ParkApp/detail.html', {
-            'question': question,
-            'error_message': "You didn't select a choice.",
-        })
-    else:
-        selected_choice.votes += 1
-        selected_choice.save()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
-        return HttpResponseRedirect(reverse('ParkApp:results', args=(question.id,)))
     
 def testAPIcall(request):
     response = requests.get('https://jsonplaceholder.typicode.com/users')
@@ -50,16 +23,59 @@ def testAPIcall(request):
     return render(request, "ParkApp/test.html", {'users': users})
 
 
-def receiveURAdata(request):
-    response = requests.get('http://localhost:8080/https://www.ura.gov.sg/uraDataService/invokeUraDS?service=Car_Park_Details',
-                                headers= {
-                                    'AccessKey': '2a097165-1ba0-4a44-9d9e-4a7b2586322b',
-                                    'Token': '4rDjwk9-h-24VBtb42aWqf1-9KbSD0ks6Mfha7p2t4--9aKa-B045784tCb90U4CRqX9d76C2bG77D92d8--C-x@-2U4WGfZ6549',
-                                }
-                            )
-    print(response)
-    print(response.text)
-    #TODO: response returned is in HTML? https://stackoverflow.com/questions/52488117/python-requests-randomly-breaks-with-jsondecodeerror
-    #TODO: cannot load json content from this GET request
-    URAdata = response.json()
-    return render(request, "ParkApp/carparks.html", {'carparks': URAdata})
+@api_view(['GET'])
+def getCarpark(request):
+    try:
+        filtered_search = Carpark.objects.filter(carpark_id=request.GET.get('q')).filter(lot_type="C").get()
+        serializer = CarparkSerializer(filtered_search)
+        return Response(serializer.data)
+    except:
+        return Response(status=404, data="Query not found, use 'q' parameter to search Carparks by ID number. E.g. ParkApp/GetCarpark/?q=A0046")
+
+        # # Unused code to return all Carpark data in database
+        # carpark = Carpark.objects.all()
+        # serializer = CarparkSerializer(carpark, many=True)
+        # return Response(serializer.data)
+
+@api_view(['POST'])
+def postCarkpark(request):
+    serializer = CarparkSerializer(data=request.data, many=True)
+    if serializer.is_valid():
+        serializer.save()
+    else:
+        print(serializer.errors)
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+def putCarpark(request):
+    # TODO match PUT request params to Carpark's carpark_id and lot_type, and update this Carpark's data
+    # https://stackoverflow.com/questions/48777490/update-put-request-in-django-rest-framework
+    return
+
+@api_view(['GET'])
+def getUser(request):
+    try:
+        filtered_search = User.objects.filter(user_id=request.GET.get('q')).get()
+        serializer = UserSerializer(filtered_search)
+        return Response(serializer.data)
+    except:
+        return Response(status=404, data="Query not found, use 'q' parameter to search Users by ID number. E.g. ParkApp/GetUser/?q=0")
+    
+        # # Unused code to return all User data in database
+        # user = User.objects.all()
+        # serializer = UserSerializer(user, many=True)
+        # return Response(serializer.data)
+
+@api_view(['POST'])
+def postUser(request):
+    serializer = UserSerializer(data=request.data, many=True)
+    if serializer.is_valid():
+        serializer.save()
+    else:
+        print(serializer.errors)
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+def putUser(request):
+    #TODO similar to putCarpark
+    return
