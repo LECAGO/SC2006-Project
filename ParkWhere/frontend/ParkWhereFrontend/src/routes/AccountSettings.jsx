@@ -1,6 +1,11 @@
 function AccountSettings() {
     return (
-        <div></div>
+        <div class="content">
+            <br></br>
+            <div style={{textAlign:'center'}}>
+                To be added!
+            </div>
+        </div>
     )
 }
 

@@ -10,8 +10,6 @@ import Favorites from './routes/Favorites';
 import Blacklist from './routes/Blacklist';
 import LoginPage from './routes/LoginPage';
 import ProfilePage from './routes/ProfilePage';
-import Contact from './routes/Contact';
-import Feedback from './routes/Feedback';
 import AccountSettings from './routes/AccountSettings';
 import RegisterPage from './routes/RegisterPage';
 import GetCarparks from "./components/GetCarparks"
@@ -37,8 +35,6 @@ const router = createBrowserRouter([
       { path: '/profile', element: <ProfilePage /> },
       { path: '/account-settings', element: <AccountSettings /> },
       { path: '/help', element: <HelpPage /> },
-      { path: '/contact', element: <Contact /> },
-      { path: '/feedback', element: <Feedback /> },
       { path: '/register', element: <RegisterPage /> },
     ]
   },

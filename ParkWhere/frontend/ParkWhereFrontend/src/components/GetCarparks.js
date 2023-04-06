@@ -296,5 +296,6 @@ export default async function GetCarparks() {
     const URACarpark = await GetURACarparkAvailability();
     const HDBCarpark = await GetHDBCarparkAvailability();
     const LTACarpark = await GetLTACarparkAvailability();
-    return [...URACarpark, ...HDBCarpark, ...LTACarpark];
+    const CarparkAvail = [...URACarpark, ...HDBCarpark, ...LTACarpark];
+    return CarparkAvail;
 }
