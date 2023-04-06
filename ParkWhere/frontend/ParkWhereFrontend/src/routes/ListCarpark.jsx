@@ -37,7 +37,6 @@ function ListCarpark() {
                             <CarparkBasic 
                                 id={carpark.carpark_id}
                                 key={i}
-                                name={carpark.name} 
                                 availability={carpark.lots_available}
                                 totalslot={carpark.total_lots}
                                 distance={carpark.distance}
