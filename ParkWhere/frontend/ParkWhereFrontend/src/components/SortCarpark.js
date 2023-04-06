@@ -7,12 +7,12 @@ function calcDistanceTwoPoints([x1,y1], [x2,y2]) {
 
 function GetDistance(coordinates, data) {
     for(var i = 0; i < data.length; i++) {
-        var address = data[i]["address"].split(",");
-        if(address.length!==2 || address[0]===NaN) data[i]["distance"] = NaN;
+        var carpark_coordinates = data[i]["coordinates"].split(",");
+        if(carpark_coordinates.length!==2 || carpark_coordinates[0]===NaN) data[i]["distance"] = NaN;
         else {
-            address[0] = parseFloat(address[0]);
-            address[1] = parseFloat(address[1]);
-            data[i]["distance"] = calcDistanceTwoPoints(coordinates, address)
+            carpark_coordinates[0] = parseFloat(carpark_coordinates[0]);
+            carpark_coordinates[1] = parseFloat(carpark_coordinates[1]);
+            data[i]["distance"] = calcDistanceTwoPoints(coordinates, carpark_coordinates)
         }
     }
     return data;

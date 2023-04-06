@@ -13,8 +13,7 @@ import ProfilePage from './routes/ProfilePage';
 import Contact from './routes/Contact';
 import Feedback from './routes/Feedback';
 import AccountSettings from './routes/AccountSettings';
-import GetURACarparkAvailability from "./components/GetURACarparkAvailability"
-
+import GetCarparks from "./components/GetCarparks"
 import './index.css'
 
 const router = createBrowserRouter([
@@ -29,7 +28,7 @@ const router = createBrowserRouter([
       {
         path: '/list',
         element: <ListCarpark />,
-        loader: GetURACarparkAvailability
+        loader: GetCarparks
       },
       { path: '/favorites', element: <Favorites /> },
       { path: '/blacklist', element: <Blacklist /> },
