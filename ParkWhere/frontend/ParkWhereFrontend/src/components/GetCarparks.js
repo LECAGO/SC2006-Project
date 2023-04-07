@@ -91,9 +91,9 @@ async function GetURACarparkAvailability() {
                             } else if (carpark_details?.[vvtr]?.["parkingSystem"] == "B") {
                                 parkingsys = "Electronic Parking System"; // parking system
                             } else {
-                                parkingsys = "Parking n/a";
+                                parkingsys = "-";
                             }
-                            shorttermpark = 'No info on short term parking';
+                            shorttermpark = "-";
                             // sunPHRate for freeparking
                             if (carpark_details?.[vvtr]?.["sunPHRate"] == "$0.00") {
                                 freeparkchk = 1;
@@ -254,13 +254,13 @@ async function GetLTACarparkAvailability() {
                     addr = carpark_avail_data?.[ictr]?.["Area"] + " " + carpark_avail_data?.[ictr]?.["Development"];
                     coord = carpark_avail_data?.[ictr]?.["Location"];
                     lotsavail = carpark_avail_data?.[ictr]?.["AvailableLots"];
-                    lotstotal = "?";
+                    lotstotal = "-";
                     lottype = carpark_avail_data?.[ictr]?.["LotType"];
                     agcy = carpark_avail_data?.[ictr]?.["Agency"];
-                    parkingsys = "NoInfoForParkingSystemForLTA";
-                    shorttermpark = "NoInfoForShortTermParkingForLTA";
-                    freepark = "NoInfoForFreeParkingForLTA";
-                    nightpark = "NoInfoForNightParkingForLTA";
+                    parkingsys = "-";
+                    shorttermpark = "-";
+                    freepark = "-";
+                    nightpark = "-";
                     api = "LTAAPI";
 
                     var cv = new SVY21();

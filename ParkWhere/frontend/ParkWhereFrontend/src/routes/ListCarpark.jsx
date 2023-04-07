@@ -31,10 +31,11 @@ function ListCarpark() {
                 <div className="row border-bottom border-dark py-3">
                     <h2>Recommended Carparks for {label}:</h2>
                 </div>
-                { coordinates[0] !== NaN && coordinates.length === 2 && carpark_data.length > 0 ?
+                { coordinates[0] && coordinates.length === 2 && carpark_data.length > 0 ?
                     carpark_data.map((carpark, i) => (
                         <div className="row border-bottom border-dark py-3" key={i}>
                             <CarparkBasic 
+                                currentLocation={label}
                                 id={carpark.carpark_id}
                                 key={i}
                                 availability={carpark.lots_available}
