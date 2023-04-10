@@ -50,14 +50,18 @@ function AccountSettings() {
                 return;
             }
         }
-
-        if (!username) {
-            setUsername(user.username);
+        
+        let jsonUser = {};
+        if (username) {
+            jsonUser['username'] = username;
         }
 
-        if (!email) {
-            setEmail(user.email);
+        if (email) {
+            jsonUser['email'] = email;
         }
+
+        if(!jsonUser) return;
+        console.log(jsonUser);
 
         response = await fetch(`http://localhost:8000/ParkApp/users/${user.id}/`, {
             method: "PATCH",
@@ -65,7 +69,7 @@ function AccountSettings() {
                 "Content-Type": "application/json",
                 "Authorization": `Token ${localStorage.getItem("token")}`
             },
-            body: JSON.stringify({ username, email })
+            body: JSON.stringify(jsonUser)
         }).then((response) => {
             if (response.status === 400) {
                 alert("Username already exists");
@@ -81,7 +85,7 @@ function AccountSettings() {
 
     return (
         <>
-            <div class="content">
+            <div className="content">
                 <br></br>
                 <div style={{ textAlign: 'center' }}>
                     {user ? (
