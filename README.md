@@ -10,6 +10,10 @@ Team Cirno (Group 3)
 
 ./ParkWhere	-Contains source code
 
+./Project Report.pdf   -Project Report file
+
+./Presentation Slides.pptx	-Slide deck for Live Demo
+
 # Install instructions
 1. Install backend dependencies. Navigate to backend (parkwhere/backend) and install:
 ```
