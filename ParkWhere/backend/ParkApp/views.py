@@ -95,7 +95,7 @@ class BlacklistView(APIView):
             request.user.blacklist.add(carpark)
             return Response(status=200, data={"message":"Carpark added to blacklist"})
         except:
-            return Response(status=400, data={"error":"Carpark not found, include id and lot type in request body. E.g. {'carpark_id': 'A0046', 'lot_type': 'C'}"})
+            return Response(status=404, data={"error":"Carpark not found, include id and lot type in request body. E.g. {'carpark_id': 'A0046', 'lot_type': 'C'}"})
     
     def delete(self, request):
         carpark_id = request.data.get('carpark_id')
@@ -105,4 +105,4 @@ class BlacklistView(APIView):
             request.user.blacklist.remove(carpark)
             return Response(status=200, data={"message":"Carpark removed from blacklist"})
         except:
-            return Response(status=400, data={"error":"Carpark not found, include id and lot type in request body. E.g. {'carpark_id': 'A0046', 'lot_type': 'C'}"})
+            return Response(status=404, data={"error":"Carpark not found, include id and lot type in request body. E.g. {'carpark_id': 'A0046', 'lot_type': 'C'}"})
