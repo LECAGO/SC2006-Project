@@ -2,3 +2,4 @@ django
 requests 
 djangorestframework
 simple-history
+django-cors-headers
