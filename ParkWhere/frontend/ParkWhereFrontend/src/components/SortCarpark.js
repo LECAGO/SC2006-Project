@@ -21,11 +21,25 @@ function GetDistance(coordinates, data) {
 function compareData(first, second) {
     if (first.lots_available < 10) return 1;
     if (second.lots_available < 10) return -1;
+    if(first.favorite && !second.favorite) return -1;
+    if(!first.favorite && second.favorite) return 1;
     return first.distance - second.distance;
 }
 
-export default function sortCarpark(coordinates, data) {
+export default function sortCarpark(coordinates, data, favorite, blacklist) {
+    // remove from data if carpark is in blacklist
+    data = data.filter((carpark) => {
+        return !blacklist.includes(carpark.carpark_number);
+    });
+
+    // calculate distance between coordinates and carpark
     const dist_data = GetDistance(coordinates, data);
+
+    // add favorite attribute to each carpark
+    for(var i = 0; i < dist_data.length; i++) {
+        dist_data[i]["favorite"] = favorite.includes(dist_data[i].carpark_id);
+    }
+
     const sorted = dist_data.sort(compareData);
     return sorted;
 }

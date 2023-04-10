@@ -2,15 +2,33 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './LoginPage.css';
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from '../components/AuthProvider';
 
 function LoginPage() {
+    const {user, getCurrentUser} = useAuth();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = (e) => {
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(username, password);
-      };
+        const response = await fetch("http://localhost:8000/ParkApp/users/login/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+        }).then((response) => {
+            return response.json()
+        }).then((data) => {
+            localStorage.setItem("token", data.token);
+            getCurrentUser();
+            navigate('/');
+        })
+        .catch((error) => {
+            alert("Error: ", error);
+        });
+    };
 
     return (
         <>

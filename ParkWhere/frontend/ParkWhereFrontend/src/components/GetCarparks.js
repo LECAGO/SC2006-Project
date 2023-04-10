@@ -2,7 +2,6 @@ import { SVY21 } from "./ParseSearch";
 
 async function GetURACarparkAvailability() {
     try {
-
         const response_0 = await fetch('http://localhost:8080/https://www.ura.gov.sg/uraDataService/insertNewToken.action', {
               'headers' : {
                   'AccessKey': '2a097165-1ba0-4a44-9d9e-4a7b2586322b'
@@ -91,9 +90,9 @@ async function GetURACarparkAvailability() {
                             } else if (carpark_details?.[vvtr]?.["parkingSystem"] == "B") {
                                 parkingsys = "Electronic Parking System"; // parking system
                             } else {
-                                parkingsys = "-";
+                                parkingsys = "";
                             }
-                            shorttermpark = "-";
+                            shorttermpark = "";
                             // sunPHRate for freeparking
                             if (carpark_details?.[vvtr]?.["sunPHRate"] == "$0.00") {
                                 freeparkchk = 1;
@@ -142,7 +141,7 @@ async function GetURACarparkAvailability() {
         return CarparkAvail;
     }
     catch (error) {
-        return NaN;
+        return [];
     }
 }
 
@@ -215,7 +214,7 @@ async function GetHDBCarparkAvailability() {
         return CarparkAvail;
     }
     catch (error) {
-        return NaN;
+        return [];
     }
 }
 
@@ -254,13 +253,13 @@ async function GetLTACarparkAvailability() {
                     addr = carpark_avail_data?.[ictr]?.["Area"] + " " + carpark_avail_data?.[ictr]?.["Development"];
                     coord = carpark_avail_data?.[ictr]?.["Location"];
                     lotsavail = carpark_avail_data?.[ictr]?.["AvailableLots"];
-                    lotstotal = "-";
+                    lotstotal = -1;
                     lottype = carpark_avail_data?.[ictr]?.["LotType"];
                     agcy = carpark_avail_data?.[ictr]?.["Agency"];
-                    parkingsys = "-";
-                    shorttermpark = "-";
-                    freepark = "-";
-                    nightpark = "-";
+                    parkingsys = "";
+                    shorttermpark = "";
+                    freepark = "";
+                    nightpark = "";
                     api = "LTAAPI";
 
                     var cv = new SVY21();
@@ -288,14 +287,27 @@ async function GetLTACarparkAvailability() {
         return CarparkAvail;
     }
     catch (error) {
-        return NaN;
+        return [];
     }
 }
 
 export default async function GetCarparks() {
-    const URACarpark = await GetURACarparkAvailability();
-    const HDBCarpark = await GetHDBCarparkAvailability();
-    const LTACarpark = await GetLTACarparkAvailability();
+    const [URACarpark, HDBCarpark, LTACarpark] = await Promise.all([
+        GetURACarparkAvailability(),
+        GetHDBCarparkAvailability(),
+        GetLTACarparkAvailability()
+    ]);
     const CarparkAvail = [...URACarpark, ...HDBCarpark, ...LTACarpark];
-    return CarparkAvail;
+
+
+    fetch("http://localhost:8000/ParkApp/carpark/update/", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(CarparkAvail),
+    })
+
+    const CarparkAvailC = CarparkAvail.filter((carpark) => carpark.lot_type == "C");
+    return CarparkAvailC;
 }

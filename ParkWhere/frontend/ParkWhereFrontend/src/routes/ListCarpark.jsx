@@ -1,10 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CarparkBasic from "../components/CarparkBasic";
-import {useEffect} from "react";
+import {useState, useEffect} from "react";
 import {useLoaderData, useLocation} from "react-router-dom";
 import SortCarpark from "../components/SortCarpark";
+import { useAuth } from '../components/AuthProvider';
+import Loading from '../components/Loading';
 
 function ListCarpark() {
+    const [isLoading, setIsLoading] = useState(true);
+    const {user, getCurrentUser} = useAuth();
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     var coordinates = []
@@ -14,19 +18,30 @@ function ListCarpark() {
     try { label = queryParams.get('label') }
     catch { label = [NaN] }
 
-    var carpark_data = useLoaderData();
-    if(carpark_data) carpark_data = SortCarpark(coordinates, carpark_data);
-
     // set interval to refresh data every 300 seconds (5 minutes)
     useEffect(() => {
+        getCurrentUser();
         const interval = setInterval(() => {
             window.location.reload();
         }, 300 * 1000);
         return () => clearInterval(interval);
     }, []);
 
+    var carpark_data = useLoaderData();
+    if(carpark_data) {
+        const user_favorite = user.favorite.map((item) => (item.carpark_id));
+        const user_blacklist = user.blacklist.map((item) => (item.carpark_id));
+        carpark_data = SortCarpark(coordinates, carpark_data, user_favorite, user_blacklist);
+        useEffect(() => {
+            setIsLoading(false)
+        }, []);
+    }
+
     return (
         <>
+            {isLoading ?
+                <Loading /> :
+            <>
             <div className="container mt-4">
                 <div className="row border-bottom border-dark py-3">
                     <h2>Recommended Carparks for {label}:</h2>
@@ -42,6 +57,7 @@ function ListCarpark() {
                                 totalslot={carpark.total_lots}
                                 distance={carpark.distance}
                                 address={carpark.address}
+                                favorite={carpark.favorite}
                             />
                         </div>
                     )) :
@@ -50,6 +66,8 @@ function ListCarpark() {
                     </div>
                 }
             </div>
+            </>
+            }
         </>
     )
 }

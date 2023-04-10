@@ -2,16 +2,42 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './LoginPage.css';
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from '../components/AuthProvider';
 
 function RegisterPage() {
+    const {user, getCurrentUser} = useAuth();
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const handleSubmit = (e) => {
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(username, email, password, confirmPassword);
+        if(password !== confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+        const response = await fetch("http://localhost:8000/ParkApp/users/register/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({username, password, email})
+        }).then((response) => {
+            if(response.status === 400) {
+                alert("Username already exists");
+                return;
+            }
+            return response.json()
+        }).then((data) => {
+            localStorage.setItem("token", data.token);
+            getCurrentUser();
+            navigate('/');
+        })
+        .catch((error) => {
+            alert("Error: ", error);
+        });
     };
 
     return (
@@ -19,7 +45,8 @@ function RegisterPage() {
             <div className="row">
                 <div className="col-lg-6 reg-pitch" style={{ paddingTop: '30px', borderRight: 'solid 2px' }}>
                     <h3 style={{ textAlign: 'center' }}> Why register for ParkWhere? </h3>
-                    <ul style={{ paddingLeft: '25%' }}>
+                    <br></br>
+                    <ul style={{ paddingLeft: '25%'}}>
                         <li>Reason 1</li>
                         <li>Reason 2</li>
                         <li>Reason 3</li>
@@ -30,7 +57,7 @@ function RegisterPage() {
                 <div className="col-lg-6 reg-form" style={{ paddingTop: '30px', borderRight: 'black' }} onSubmit={handleSubmit}>
                     <div className="register" style={{ textAlign: 'center'}}>
                         <h1>Register</h1>
-                        <form className="row g-3 needs-validation" style={{ marginTop: '0' }}>
+                        <form className="row g-3 needs-validation" style={{ marginTop: '0' }} onSubmit={handleSubmit}>
                             <div className="username-box" style={{ paddingLeft: '30%', paddingRight: '30%' }}>
                                 <input type="text" className="form-control" id="validationCustom01" placeholder="Username" onChange={(e) => setUsername(e.target.value)} required />
                             </div>
