@@ -1,4 +1,3 @@
-import datetime, timedelta
 from django.db import models
 
 class Carpark(models.Model):

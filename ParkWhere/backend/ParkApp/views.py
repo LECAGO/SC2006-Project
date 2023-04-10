@@ -1,14 +1,9 @@
-from django.shortcuts import render
-from django.views import generic
-import requests
-
 from .models import Carpark
 from .serializers import CarparkSerializer, SimpleCarparkSerializer
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
