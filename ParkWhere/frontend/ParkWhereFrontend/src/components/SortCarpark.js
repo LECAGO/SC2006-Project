@@ -28,12 +28,12 @@ function compareData(first, second) {
 
 export default function sortCarpark(coordinates, data, favorite, blacklist) {
     // remove from data if carpark is in blacklist
-    data = data.filter((carpark) => {
-        return !blacklist.includes(carpark.carpark_number);
+    const filtered_data = data.filter((carpark) => {
+        return !blacklist.includes(carpark.carpark_id);
     });
 
     // calculate distance between coordinates and carpark
-    const dist_data = GetDistance(coordinates, data);
+    const dist_data = GetDistance(coordinates, filtered_data);
 
     // add favorite attribute to each carpark
     for(var i = 0; i < dist_data.length; i++) {
