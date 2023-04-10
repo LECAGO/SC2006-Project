@@ -34,7 +34,6 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'users',
     'corsheaders',
-
     'ParkApp.apps.ParkAppConfig',
     'simple_history',
     'rest_framework',

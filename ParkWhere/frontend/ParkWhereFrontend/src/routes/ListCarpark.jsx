@@ -29,9 +29,15 @@ function ListCarpark() {
 
     var carpark_data = useLoaderData();
     if(carpark_data) {
-        const user_favorite = user.favorite.map((item) => (item.carpark_id));
-        const user_blacklist = user.blacklist.map((item) => (item.carpark_id));
-        carpark_data = SortCarpark(coordinates, carpark_data, user_favorite, user_blacklist);
+        if(!user) {
+            carpark_data = SortCarpark(coordinates, carpark_data, [], []);
+        }
+        else {
+            const user_favorite = user.favorite.map((item) => (item.carpark_id));
+            const user_blacklist = user.blacklist.map((item) => (item.carpark_id));
+            carpark_data = SortCarpark(coordinates, carpark_data, user_favorite, user_blacklist);
+        }
+       
         useEffect(() => {
             setIsLoading(false)
         }, []);
