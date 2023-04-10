@@ -47,3 +47,13 @@ class LogoutView(APIView):
         token_key = request.auth.key
         Token.objects.filter(key=token_key).delete()
         return Response({'message': 'You have been logged out.'})
+
+@api_view(['POST'])
+def changePassword(request):
+    try:
+        user = request.user
+        user.set_password(request.data['password'])
+        user.save()
+        return Response(status=200, data={"success":"Password changed"})
+    except:
+        return Response(status=401, data={"error":"User unauthenticated"})
