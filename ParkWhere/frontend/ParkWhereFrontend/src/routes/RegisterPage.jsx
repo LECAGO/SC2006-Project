@@ -1,9 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './LoginPage.css';
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from '../components/AuthProvider';
+import Loading from '../components/Loading';
 
 function RegisterPage() {
     const {user, getCurrentUser} = useAuth();
@@ -11,11 +11,13 @@ function RegisterPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         if(password !== confirmPassword) {
             alert("Passwords do not match");
             return;
@@ -33,10 +35,8 @@ function RegisterPage() {
         }).then((data) => {
             localStorage.setItem("token", data.token);
             getCurrentUser();
+            setIsLoading(false);
             navigate('/');
-        })
-        .catch((error) => {
-            alert("Error: ", error);
         });
     };
 
@@ -46,12 +46,10 @@ function RegisterPage() {
                 <div className="col-lg-6 reg-pitch" style={{ paddingTop: '30px', borderRight: 'solid 2px' }}>
                     <h3 style={{ textAlign: 'center' }}> Why register for ParkWhere? </h3>
                     <br></br>
-                    <ul style={{ paddingLeft: '25%'}}>
-                        <li>Reason 1</li>
-                        <li>Reason 2</li>
-                        <li>Reason 3</li>
-                        <li>Reason 4</li>
-                        <li>Reason 5</li>
+                    <ul style={{ paddingLeft: '15%'}}>
+                        <li>We include carparks from multiple APIs: URA, LTA and HDB</li>
+                        <li>We have user personalization features such as favorite list and blacklist</li>
+                        <li>We give a link to Google Maps to ease navigating to the chosen carpark</li>
                     </ul>
                 </div>
                 <div className="col-lg-6 reg-form" style={{ paddingTop: '30px', borderRight: 'black' }} onSubmit={handleSubmit}>
@@ -67,7 +65,7 @@ function RegisterPage() {
                             <div className="password-box" style={{ paddingLeft: '30%', paddingRight: '30%' }}>
                                 <input type="password" className="form-control" id="validationCustom03" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
                             </div>
-                            <div className="password-comfirm-box" style={{ paddingLeft: '30%', paddingRight: '30%' }}>
+                            <div className="password-confirm-box" style={{ paddingLeft: '30%', paddingRight: '30%' }}>
                                 <input type="password" className="form-control" id="validationCustom04" placeholder="Confirm Password" onChange={(e) => setConfirmPassword(e.target.value)} required />
                             </div>
                             <div className="submit-button">

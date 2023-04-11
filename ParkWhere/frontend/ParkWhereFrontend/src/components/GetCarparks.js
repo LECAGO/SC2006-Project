@@ -2,9 +2,11 @@ import { SVY21 } from "./ParseSearch";
 
 async function GetURACarparkAvailability() {
     try {
+        const URAaccessKey = '2a097165-1ba0-4a44-9d9e-4a7b2586322b';
+
         const response_0 = await fetch('http://localhost:8080/https://www.ura.gov.sg/uraDataService/insertNewToken.action', {
               'headers' : {
-                  'AccessKey': '2a097165-1ba0-4a44-9d9e-4a7b2586322b'
+                  'AccessKey': URAaccessKey
               }
         });
         const jsonrep_0 = await response_0.json();
@@ -13,7 +15,7 @@ async function GetURACarparkAvailability() {
         
         const response_1 = await fetch('http://localhost:8080/https://www.ura.gov.sg/uraDataService/invokeUraDS?service=Car_Park_Availability', {
             'headers' : {
-                'AccessKey': '2a097165-1ba0-4a44-9d9e-4a7b2586322b',
+                'AccessKey': URAaccessKey,
                 'Token': token,
             }
         });
@@ -24,7 +26,7 @@ async function GetURACarparkAvailability() {
 
         const response_2 = await fetch('http://localhost:8080/https://www.ura.gov.sg/uraDataService/invokeUraDS?service=Car_Park_Details', {
             'headers' : {
-                'AccessKey': '2a097165-1ba0-4a44-9d9e-4a7b2586322b',
+                'AccessKey': URAaccessKey,
                 'Token': token,
             }
         });
@@ -291,7 +293,7 @@ async function GetLTACarparkAvailability() {
     }
 }
 
-export default async function GetCarparks() {
+export const GetCarparks = async () => {
     const [URACarpark, HDBCarpark, LTACarpark] = await Promise.all([
         GetURACarparkAvailability(),
         GetHDBCarparkAvailability(),

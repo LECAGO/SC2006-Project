@@ -1,11 +1,25 @@
+import { useAuth } from '../components/AuthProvider';
+import { useEffect } from 'react';
+
 function ProfilePage() {
+    const {user, getCurrentUser} = useAuth();
+
+    useEffect(() => {
+        getCurrentUser();
+      }, []);
+
     return (
         <div class="content">
             <br></br>
             <div style={{textAlign:'center'}}>
-                <br></br>
-                <p>Name: {"test"}</p>
-                <p>Email: {"example@email.com"}</p>
+                {user ? (
+                <>
+                    <p>Name: {user.username}</p>
+                    <p>Email: {user.email}</p>
+                </>
+                ) : (
+                    <p></p>
+                )}
             </div>
         </div>
     )

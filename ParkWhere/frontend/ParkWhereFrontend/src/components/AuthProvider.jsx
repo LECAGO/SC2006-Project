@@ -23,6 +23,7 @@ export function AuthProvider({ children }) {
 
         if(response.status == 200) {
             setUser(data);
+            return data;
         }
         else {
             setUser(null);

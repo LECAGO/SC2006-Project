@@ -1,14 +1,9 @@
-from django.shortcuts import render
-from django.views import generic
-import requests
-
 from .models import Carpark
 from .serializers import CarparkSerializer, SimpleCarparkSerializer
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
@@ -61,7 +56,7 @@ class FavoriteView(APIView):
             request.user.favorite.add(carpark)
             return Response(status=200, data={"message":"Carpark added to favorites"})
         except:
-            return Response(status=400, data={"error":"Carpark not found, include id and lot type in request body. E.g. {'carpark_id': 'A0046', 'lot_type': 'C'}"})
+            return Response(status=404, data={"error":"Carpark not found, include id and lot type in request body. E.g. {'carpark_id': 'A0046', 'lot_type': 'C'}"})
 
     def delete(self, request):
         carpark_id = request.data.get('carpark_id')
@@ -71,7 +66,7 @@ class FavoriteView(APIView):
             request.user.favorite.remove(carpark)
             return Response(status=200, data={"message":"Carpark removed from favorites"})
         except:
-            return Response(status=400, data={"error":"Carpark not found, include id and lot type in request body. E.g. {'carpark_id': 'A0046', 'lot_type': 'C'}"})
+            return Response(status=404, data={"error":"Carpark not found, include id and lot type in request body. E.g. {'carpark_id': 'A0046', 'lot_type': 'C'}"})
 
 class BlacklistView(APIView):
     authentication_classes = [TokenAuthentication]
@@ -95,7 +90,7 @@ class BlacklistView(APIView):
             request.user.blacklist.add(carpark)
             return Response(status=200, data={"message":"Carpark added to blacklist"})
         except:
-            return Response(status=400, data={"error":"Carpark not found, include id and lot type in request body. E.g. {'carpark_id': 'A0046', 'lot_type': 'C'}"})
+            return Response(status=404, data={"error":"Carpark not found, include id and lot type in request body. E.g. {'carpark_id': 'A0046', 'lot_type': 'C'}"})
     
     def delete(self, request):
         carpark_id = request.data.get('carpark_id')
@@ -105,4 +100,4 @@ class BlacklistView(APIView):
             request.user.blacklist.remove(carpark)
             return Response(status=200, data={"message":"Carpark removed from blacklist"})
         except:
-            return Response(status=400, data={"error":"Carpark not found, include id and lot type in request body. E.g. {'carpark_id': 'A0046', 'lot_type': 'C'}"})
+            return Response(status=404, data={"error":"Carpark not found, include id and lot type in request body. E.g. {'carpark_id': 'A0046', 'lot_type': 'C'}"})

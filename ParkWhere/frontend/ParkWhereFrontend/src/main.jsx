@@ -13,7 +13,6 @@ import LoginPage from './routes/LoginPage';
 import ProfilePage from './routes/ProfilePage';
 import AccountSettings from './routes/AccountSettings';
 import RegisterPage from './routes/RegisterPage';
-import GetCarparks from "./components/GetCarparks"
 import Logout from './routes/Logout';
 import './index.css'
 import { AuthProvider } from './components/AuthProvider';
@@ -23,15 +22,8 @@ const router = createBrowserRouter([
 		path: '/',
 		element: <RootLayout />,
 		children: [
-			{
-				path: '/',
-				element: <SearchCarpark />,
-			},
-			{
-				path: '/list',
-				element: <ListCarpark />,
-				loader: GetCarparks
-			},
+			{ path: '/', element: <SearchCarpark />},
+			{ path: '/list', element: <ListCarpark />,},
 			{ path: '/login', element: <LoginPage /> },
 			{ path: '/help', element: <HelpPage /> },
 			{ path: '/register', element: <RegisterPage /> },
@@ -42,16 +34,8 @@ const router = createBrowserRouter([
 		element: <ProtectedRouteLayout />,
 		children: [
 			{ path: '/logout', element: <Logout />, },
-			{ 
-				path: '/favorites', 
-				element: <FavoritesPage />,
-				loader: GetCarparks
-			},
-			{ 
-				path: '/blacklist', 
-				element: <BlacklistPage />,
-				loader: GetCarparks
-			},
+			{ path: '/favorites', element: <FavoritesPage /> },
+			{ path: '/blacklist', element: <BlacklistPage /> },
 			{ path: '/profile', element: <ProfilePage /> },
 			{ path: '/account-settings', element: <AccountSettings /> },
 		],

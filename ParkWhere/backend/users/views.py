@@ -6,7 +6,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
-from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
@@ -47,3 +46,13 @@ class LogoutView(APIView):
         token_key = request.auth.key
         Token.objects.filter(key=token_key).delete()
         return Response({'message': 'You have been logged out.'})
+
+@api_view(['POST'])
+def changePassword(request):
+    try:
+        user = request.user
+        user.set_password(request.data['password'])
+        user.save()
+        return Response(status=200, data={"success":"Password changed"})
+    except:
+        return Response(status=401, data={"error":"User unauthenticated"})
