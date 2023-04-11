@@ -21,6 +21,8 @@ function GetDistance(coordinates, data) {
 function compareData(first, second) {
     if (first.lots_available < 10) return 1;
     if (second.lots_available < 10) return -1;
+    if (first.distance > 2) return 1;
+    if (second.distance > 2) return -1;
     if(first.favorite && !second.favorite) return -1;
     if(!first.favorite && second.favorite) return 1;
     return first.distance - second.distance;

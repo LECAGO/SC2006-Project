@@ -61,7 +61,6 @@ function AccountSettings() {
         }
 
         if(!jsonUser) return;
-        console.log(jsonUser);
 
         response = await fetch(`http://localhost:8000/ParkApp/users/${user.id}/`, {
             method: "PATCH",

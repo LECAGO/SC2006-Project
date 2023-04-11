@@ -18,6 +18,12 @@ function RegisterPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
+
+        if(password.length < 8) {
+            alert("Password must be at least 8 characters");
+            return;
+        }
+
         if(password !== confirmPassword) {
             alert("Passwords do not match");
             return;

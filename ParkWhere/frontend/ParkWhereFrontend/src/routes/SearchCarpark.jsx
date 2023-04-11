@@ -30,6 +30,7 @@ function SearchCarpark() {
 
     return (
         <div className="intro">
+            <br></br>
             <img className="icon-img" src="src/assets/ParkWhereIcon.png" alt="Icon" />
             <h1 className="welcome-title">Welcome to ParkWhere!</h1>
             <p className="welcome-text">Simply enter your address in the search box below to search for the nearest carparks. </p>

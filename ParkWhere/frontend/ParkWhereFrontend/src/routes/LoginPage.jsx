@@ -41,6 +41,7 @@ function LoginPage() {
         <>
             <div className="login">
                 <h1 className="login-header">Login</h1>
+                <br></br>
                 <form className="row g-3 needs-validation" onSubmit={handleSubmit}>
                     <div className="username-box" style={{ paddingLeft: "30%", paddingRight: "30%" }}>
                         <input type="text" className="form-control" id="validationCustom01" placeholder="Username" onChange={(e) => setUsername(e.target.value)} required />

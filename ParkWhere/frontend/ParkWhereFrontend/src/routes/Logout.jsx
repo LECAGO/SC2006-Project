@@ -21,9 +21,6 @@ function Logout() {
             getCurrentUser()
             navigate('/');
         })
-        .catch((error) => {
-            alert("Error: ", error);
-        });
     }
 
     useEffect(() => {
