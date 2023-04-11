@@ -2,17 +2,16 @@
 Lab Group A36
 Team Cirno (Group 3)
 
-./Digarams	-Contains Use Case, Class, Architecture, State Machine Diagrams, and raw Visual Paradigm file
+./Lab 1 to ./Lab 4  -Contains submitted Project Report drafts for Labs 1-4
 
-./Diagrams/Sequence Diagrams	-Contains Sequence Diagrams
+./Lab 5 (Final) -Contains final submission: Project Report in docx and pdf, Presentation Slides in pptx, and Demo Video
 
-./Lab Submissions	-Contains submitted Project Report drafts for each Lab
+./Lab 5/Diagrams    -Contains Use Case, Class, Architecture, State Machine Diagrams, and raw Visual Paradigm file	
+
+./Lab 5/Diagrams/Sequence Diagrams	-Contains Sequence Diagrams
 
 ./ParkWhere	-Contains source code
 
-./Project Report.pdf   -Project Report file
-
-./Presentation Slides.pptx	-Slide deck for Live Demo
 
 # Install instructions
 1. Install backend dependencies. Navigate to backend (parkwhere/backend) and install:
